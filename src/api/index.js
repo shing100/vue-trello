@@ -3,7 +3,7 @@ import router from "../router"
 
 const DOMAIN = 'http://localhost:3000'
 const UNAUTHORIZED = 401
-const onUnauthrorized = () => {
+const onUnauthorized = () => {
     router.push('/login')
 }
 
@@ -16,7 +16,7 @@ const request = (method, url, data) => {
     .then(result => result.data)
     .catch(error => {
         const { status } = result.response
-        if( status === UNAUTHORIZED ) return onUnauthrorized()
+        if (status === UNAUTHORIZED) return onUnauthorized()
         throw Error(error)
     })
 }
