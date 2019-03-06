@@ -4,8 +4,8 @@
         <div>
             Board List:
             <div v-if="loading">Loading...</div>
-            <div v-else>
-                Api result: {{apiRes}}
+            <div v-else>Api result:
+                <pre>{{boards}}</pre>
             </div>
             <ul>
                 <li>
@@ -23,11 +23,13 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     data() {
         return {
             loading: false,
-            apiRes: ''
+            boards: []
         }
     },
     created() {
@@ -36,19 +38,16 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
-
-            const req = new XMLHttpRequest()
-
-            req.open('GET', 'http://localhost:3000/health')
-            req.send()
-            req.addEventListener('load', () => {
-                this.loading = false
-                this.apiRes = {
-                    status: req.status,
-                    statusText: req.statusText,
-                    response: JSON.parse(req.response)
-                }
-            })
+            axios.get('http://localhost:3000/health')
+                .then(res => {
+                    this.boards = res.data
+                })
+                .catch(res => {
+                    this.$router.replace('/login')
+                })
+                .finally(() => {
+                    this.loading = false
+                })
         }
     }
 }
