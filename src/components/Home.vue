@@ -59,9 +59,7 @@ export default {
                 })
         },
         onAddBoard(title) {
-            //console.log(title)
-            board.create(this.title)
-                .then(() => this.fetchData())
+            this.fetchData()
         }
     }
 }
@@ -79,11 +77,12 @@ export default {
     flex-wrap: wrap;
 }
 .board-item {
-    width: 23%;
+    width: 18%;
     height: 100px;
     margin: 0 2% 20px 0;
     border-radius: 3px;
-    }
+    background-color: rgb(216, 215, 215);
+}
 .board-item a {
     text-decoration: none;
     display: block;
@@ -93,7 +92,7 @@ export default {
 .board-item a:hover,
 .board-item a:focus {
     background-color: rgba(0,0,0, .1);
-    color: #666;
+    color: rgb(90, 90, 90);
 }
 .board-item-title {
     color: rgb(255, 255, 255);
