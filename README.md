@@ -42,6 +42,8 @@ Vuex Vue-Router Axios Dragula
 ### install lib
 - npm i vue-router --save-dev
 
+- npm i vuex
+
 
 ### 참고 사이트
 - https://router.vuejs.org/kr/guide/
