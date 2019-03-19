@@ -3,7 +3,7 @@
         <div slot="header" class="modal-card-header">
             <div class="modal-card-header-title">
                 <input 
-                    lass="form-control" type="text" :value="card.title" :readonly="!toggleTitle" 
+                    class="form-control" type="text" :value="card.title" :readonly="!toggleTitle" 
                     @click="toggleTitle=true" @blur="onBlurTitle" ref="inputTitle"
                 >
             </div>

@@ -19,14 +19,14 @@ npm run build
 Vuex Vue-Router Axios Dragula
 
 
-- [ ] 로그인
-- [ ] 회원가입
-- [ ] 보드 목록 리스트
-- [ ] 보드 보기 
-- [ ] 보드 만들기
+- [x] 로그인
+- [x] 회원가입
+- [x] 보드 목록 리스트
+- [x] 보드 보기 
+- [x] 보드 만들기
 - [ ] 리스트 만들기
-- [ ] 카드 만들기
-- [ ] 카드 상세보기
+- [x] 카드 만들기
+- [x] 카드 상세보기
 - [ ] 드레그 앤 드랍
 - [ ] 메뉴
 
@@ -44,6 +44,7 @@ Vuex Vue-Router Axios Dragula
 
 - npm i vuex
 
+- npm i dragula
 
 ### 참고 사이트
 - https://router.vuejs.org/kr/guide/
