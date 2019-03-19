@@ -4,6 +4,9 @@
             <div class="board">
                 <div class="board-header">
                     <span class="board-title">{{board.title}}</span>
+                    <a class="board-header-btn show-menu" href="" @click.prevent="onShowSettings">
+                        ... Show Menu
+                    </a>
                 </div>
                 <div class="list-section-wrapper">
                     <div class="list-section">
@@ -14,18 +17,21 @@
                 </div>
             </div>
         </div>
-    <router-view></router-view>
+        <BoardSettings v-if="isShowBoardSettings" />
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import List from './List.vue'
+import BoardSettings from './BoardSettings.vue'
 import dragger from '../utils/dragger.js'
 
 export default {
     components: {
-        List
+        List,
+        BoardSettings
     },
     data() {
         return {
@@ -36,7 +42,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'board'
+            'board',
+            'isShowBoardSettings'
         ])
     },
     created() {
@@ -44,13 +51,15 @@ export default {
         this.fetchData().then(() => {
             this.SET_THEME(this.board.bgColor)
         })
+        this.SET_IS_SHOW_BOARD_SETTINGS(false)
     },
     updated() {
         this.setCardDragabble()
     },
     methods: {
         ...mapMutations([
-            'SET_THEME'
+            'SET_THEME',
+            'SET_IS_SHOW_BOARD_SETTINGS'
         ]),
         ...mapActions([
             'FETCH_BOARD',
@@ -62,30 +71,33 @@ export default {
                 .then(() => this.loading = false)
         },
         setCardDragabble() {
-        if(this.cDragger) this.cDragger.destroy()
+            if(this.cDragger) this.cDragger.destroy()
 
-        this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
-        this.cDragger.on('drop', (el, wrapper, target, siblings) => {
-            //debugger
-            const targetCard = {
-                id: el.dataset.cardId * 1,
-                pos: 65535
-            }
+            this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
+            this.cDragger.on('drop', (el, wrapper, target, siblings) => {
+                //debugger
+                const targetCard = {
+                    id: el.dataset.cardId * 1,
+                    pos: 65535
+                }
 
-            const {prev, next} = dragger.sibling({
-                el,
-                wrapper,
-                candidates: Array.from(wrapper.querySelectorAll('.card-item')),
-                type: 'card'
-            })
+                const {prev, next} = dragger.sibling({
+                    el,
+                    wrapper,
+                    candidates: Array.from(wrapper.querySelectorAll('.card-item')),
+                    type: 'card'
+                })
 
-            if (!prev && next) targetCard.pos = next.pos / 2
-            else if (!next && prev) targetCard.pos = prev.pos * 2
-            else if (prev && next) targetCard.pos = (prev.pos + next.pos) / 2
+                if (!prev && next) targetCard.pos = next.pos / 2
+                else if (!next && prev) targetCard.pos = prev.pos * 2
+                else if (prev && next) targetCard.pos = (prev.pos + next.pos) / 2
 
-            //console.log(targetCard)
-            this.UPDATE_CARD(targetCard)
-            })
+                //console.log(targetCard)
+                this.UPDATE_CARD(targetCard)
+                })
+        },
+        onShowSettings() {
+            this.SET_IS_SHOW_BOARD_SETTINGS(true)
         }
     }
 }
