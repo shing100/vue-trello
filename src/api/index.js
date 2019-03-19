@@ -33,6 +33,9 @@ export const board = {
     },
     create(title) {
         return request('post', '/boards', { title })
+    },
+    destory(id) {
+        return request('delete', `/boards/${id}`)
     }
 } 
 
