@@ -1,5 +1,4 @@
 import axios from "axios"
-import router from "../router"
 
 const DOMAIN = 'http://localhost:3000'
 // const UNAUTHORIZED = 401

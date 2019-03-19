@@ -1,7 +1,7 @@
 <template>
     <nav class="header">
         <div class="header-logo">
-            <router-link to="/">Trelno</router-link>
+            <router-link to="/">HOME</router-link>
         </div>
         <div class="header-auth">
             <a v-if="isAuth" href="" @click.prevent="logout">Logout</a>
@@ -11,12 +11,22 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapState, mapGetters, mapMutations} from 'vuex'
 export default {
     computed: {
+        ...mapState({
+            navbarColor: 'navbarColor',
+            bodyColor: 'bodyColor'
+        }),
         ...mapGetters([
             'isAuth'
         ])
+    },
+    watch: {
+        'bodyColor': 'updateTheme'
+    },
+    mounted() {
+        this.updateTheme()
     },
     methods: {
         ...mapMutations([
@@ -25,6 +35,14 @@ export default {
         logout() {
             this.LOGOUT()
             this.$router.push('/login')
+        },
+        updateTheme() {
+            this.$el.style.backgroundColor = this.navbarColor
+            
+            const body = document.querySelector('body')
+            const container = document.querySelector('.container')
+            if(body) body.style.backgroundColor = this.bodyColor
+            if(container) container.style.backgroundColor = this.bodyColor
         }
     }
 }
