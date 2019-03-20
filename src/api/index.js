@@ -42,6 +42,12 @@ export const board = {
     }
 } 
 
+export const list = {
+    create(payload) {
+        return request('post', '/lists', payload)
+    }
+}
+
 export const card = {
     create(title, listId, pos) {
         return request('post', '/cards', {title, listId, pos})

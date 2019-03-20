@@ -18,8 +18,16 @@ const actions = {
             commit('SET_BOARD', data.item)
         })
     },
+    UPDATE_BOARD({dispatch, state}, {id, title, bgColor}) {
+        return api.board.update(id, {title, bgColor})
+            .then(_ => dispatch('FETCH_BOARD', {id: state.board.id}))
+    },
     DELETE_BOARD (_, {id}) {
         return api.board.destory(id)
+    },
+    ADD_LIST ({dispatch, state}, {title, boardId, pos}) {
+        return api.list.create({title, boardId, pos})
+            .then(_ => dispatch('FETCH_BOARD', {id: state.board.id}))
     },
     ADD_CARD ({dispatch, state}, {title, listId, pos}) {
         return api.card.create(title, listId, pos)
@@ -38,10 +46,6 @@ const actions = {
         return api.card.destory(id)
             .then(_ => dispatch('FETCH_BOARD', {id: state.board.id}))
     },
-    UPDATE_BOARD({dispatch, state}, {id, title, bgColor}) {
-        return api.board.update(id, {title, bgColor})
-            .then(_ => dispatch('FETCH_BOARD', {id: state.board.id}))
-    }
 }
 
 export default actions
