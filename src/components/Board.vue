@@ -156,7 +156,7 @@ export default {
                 else if (!next && prev) targetList.pos = prev.pos * 2
                 else if (prev && next) targetList.pos = (prev.pos + next.pos) / 2
 
-                this.UPDATE_CARD(targetList)
+                this.UPDATE_LIST(targetList)
             })
         }
     }
